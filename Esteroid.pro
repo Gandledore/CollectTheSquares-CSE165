@@ -1,4 +1,5 @@
-QT       += core gui
+QT       += core gui opengl openglwidgets widgets
+LIBS += -lopengl32
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -10,10 +11,12 @@ CONFIG += c++17
 
 SOURCES += \
     main.cpp \
-    esteroid.cpp
+    esteroid.cpp \
+    player.cpp
 
 HEADERS += \
-    esteroid.h
+    esteroid.h \
+    player.h
 
 FORMS += \
     esteroid.ui
