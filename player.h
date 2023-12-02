@@ -18,6 +18,8 @@ protected:
     void keyPressEvent(QKeyEvent *event) override;
 
 private:
+    float x_pos;
+    float y_pos;
     float rotationAngle;
 };
 
