@@ -16,11 +16,14 @@ protected:
     void resizeGL(int w, int h) override;
     void paintGL() override;
     void keyPressEvent(QKeyEvent *event) override;
+    void updatePlayerPosition();
 
 private:
+    float rotationAngle;
     float x_pos;
     float y_pos;
-    float rotationAngle;
+    QTimer *move_timer;
+    float move_speed;
 };
 
 #endif // PLAYER_H
