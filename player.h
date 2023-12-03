@@ -2,6 +2,7 @@
 #define PLAYER_H
 
 #include <QOpenGLWidget>
+#include <QLabel>
 #include "target.h"
 
 class Player : public QOpenGLWidget{
@@ -17,6 +18,9 @@ protected:
     void paintGL() override;
     void keyPressEvent(QKeyEvent *event) override;
     void updatePlayerPosition();
+
+    void updateTimer();
+
     bool checkTargetCollision(Target* t);
     int checkCollisions();
     bool checkX(Target* t);
