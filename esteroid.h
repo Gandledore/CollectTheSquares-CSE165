@@ -15,6 +15,7 @@ class Esteroid : public QMainWindow
 
 public:
     Esteroid(QWidget *parent = nullptr);
+    void finishGame();
     ~Esteroid();
 
 private:

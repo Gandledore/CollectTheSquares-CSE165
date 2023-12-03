@@ -8,11 +8,6 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     Esteroid w;
-    Target** targets = new Target*[16];
-    Player *ship = new Player(&w,targets);
-    for(int i=0;i<16;i++){
-        targets[i] = new Target(&w,550+100*(i%4),200+100*(i/4));
-    }
     // w.setCentralWidget(ship);
     w.setGeometry(0, 0, 1200, 600);
     w.show();

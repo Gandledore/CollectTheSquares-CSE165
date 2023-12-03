@@ -8,6 +8,7 @@ Player::Player(QWidget *parent, Target** targs)
     : QOpenGLWidget(parent), rotationAngle(0.0f), x_pos(0.0f), y_pos(0.0f), move_speed(0.05f){
     setFocusPolicy(Qt::StrongFocus);
     targets = targs;
+    num_targets_left = 16;
     move_timer = new QTimer(this);
     connect(move_timer, &QTimer::timeout, this, &Player::updatePlayerPosition);
     move_timer->start(16); //Draw Interval
@@ -16,10 +17,7 @@ Player::Player(QWidget *parent, Target** targs)
 void Player::initializeGL(){
     QOpenGLFunctions *f = QOpenGLContext::currentContext()->functions();
     f->initializeOpenGLFunctions();
-    glClearColor(0.392f, 0.122f, 0.502f, 0.0f); //Background
-
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glClearColor(0, 0, 0, 1); //Background
     setGeometry(0,0,1200,600);
 }
 
@@ -82,6 +80,10 @@ int Player::checkCollisions(){
             if(checkTargetCollision(targets[i])){
                 delete targets[i];
                 targets[i]=nullptr;
+                num_targets_left--;
+                if(num_targets_left<=0){
+                    emit gameEnd();
+                }
                 return i;
             }
         }
@@ -93,11 +95,5 @@ void Player::updatePlayerPosition(){
     y_pos += speed * std::cos(qDegreesToRadians(rotationAngle));
     x_pos -= speed * std::sin(qDegreesToRadians(rotationAngle));
     int crash = checkCollisions();
-    if(crash!=-1){
-        qDebug() << "Crash with: (" << crash%4 << ", " << crash/4 << ")";
-    }
-    else{
-        qDebug() << "No crash";
-    }
     update();
 }
