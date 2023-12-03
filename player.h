@@ -24,7 +24,8 @@ protected:
     bool checkTargetCollision(Target* t);
     int checkCollisions();
     bool checkX(Target* t);
-
+signals:
+    gameEnd();
 private:
     float rotationAngle;
     float x_pos;
@@ -32,6 +33,7 @@ private:
     QTimer *move_timer;
     float move_speed;
     Target** targets;
+    int num_targets_left;
 };
 
 #endif // PLAYER_H
