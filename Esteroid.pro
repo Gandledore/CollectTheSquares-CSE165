@@ -12,11 +12,13 @@ CONFIG += c++17
 SOURCES += \
     main.cpp \
     esteroid.cpp \
-    player.cpp
+    player.cpp \
+    target.cpp
 
 HEADERS += \
     esteroid.h \
-    player.h
+    player.h \
+    target.h
 
 FORMS += \
     esteroid.ui

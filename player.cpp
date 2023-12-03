@@ -20,6 +20,7 @@ void Player::initializeGL(){
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    setGeometry(500,150,400,400);
 }
 
 void Player::resizeGL(int w, int h){
@@ -37,7 +38,7 @@ void Player::paintGL(){
     // Draw the player (triangle) here
     glBegin(GL_TRIANGLES);
     float scale_factor = 0.1f;
-    glColor3f(0.878f, 0.765f, 0.102f); //Gold
+    glColor3f(0, 1, 0); //Gold
     glVertex3f(0.0f,                0.5f*scale_factor  , 0.0f); // Top vertex
     glVertex3f(-0.25f*scale_factor, -0.25f*scale_factor, 0.0f); // Bottom-left vertex
     glVertex3f(0.25f*scale_factor,  -0.25f*scale_factor, 0.0f); // Bottom-right vertex
