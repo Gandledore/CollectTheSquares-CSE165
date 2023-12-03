@@ -106,9 +106,11 @@ void Player::keyPressEvent(QKeyEvent *event){
 //     }
 //     return false;
 // }
+
 bool Player::checkTargetCollision(Target* t){
     return (600*(x_pos+1) >= t->x_pos && 600*(x_pos+1) <= t->x_pos+t->target_width && 300*(1-y_pos) >= t->y_pos && 300*(1-y_pos)<=t->y_pos+t->target_height);
 }
+
 int Player::checkCollisions(){
 
     for(int i =0;i<16;i++){
@@ -121,6 +123,7 @@ int Player::checkCollisions(){
                     // endTime = t.currentTime();
                     // qDebug() << "time" << endTime - startTime;
                     qDebug() << "tada" << t.durationElapsed()/1000000000.0 << "s";
+                }
                 num_targets_left--;
                 if(num_targets_left<=0){
                     emit gameEnd();
