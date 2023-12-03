@@ -112,9 +112,9 @@ bool Player::checkTargetCollision(Target* t){
 }
 
 int Player::checkCollisions(){
-
     for(int i =0;i<16;i++){
         if(targets[i]!=nullptr){
+            targets[i]->updatePos();
             if(checkTargetCollision(targets[i])){
                 count++;
                 delete targets[i];
