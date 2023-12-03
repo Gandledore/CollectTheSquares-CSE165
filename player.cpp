@@ -31,7 +31,7 @@ Player::Player(QWidget *parent, Target** targs)
     label->setAlignment(Qt::AlignCenter);
     label->setGeometry(50,50,100,50);
     QFont f( "Open Sans", 20, QFont::Bold);
-    label->setStyleSheet("QLabel { background-color : white; }");
+    label->setStyleSheet("QLabel { background-color : black; color:white}");
     label->setFont(f);
     label->setText("first line\nsecond line");
 
@@ -138,14 +138,14 @@ int Player::checkCollisions(){
 void Player::updatePlayerPosition(){
     float speed = 0.004f;
     y_pos += speed * std::cos(qDegreesToRadians(rotationAngle));
+    if(std::abs(y_pos)>=1){
+        y_pos*=-1;
+    }
     x_pos -= speed * std::sin(qDegreesToRadians(rotationAngle));
+    if(std::abs(x_pos)>=1){
+        x_pos*=-1;
+    }
     int crash = checkCollisions();
-    // if(crash!=-1){
-    //     qDebug() << "Crash with: (" << crash%4 << ", " << crash/4 << ")";
-    // }
-    // else{
-    //     qDebug() << "No crash";
-    // }
     update();
 }
 

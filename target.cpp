@@ -35,9 +35,9 @@ void Target::paintGL(){
     glEnd();
 }
 void Target::updatePos(){
-    int speed = 1;
-    x_pos += speed;
-    y_pos += speed;
+    float speed = .1;
+    x_pos += speed * -(y_pos-initial_y+30);
+    y_pos += speed * (x_pos-initial_x+30);
     setGeometry(x_pos,y_pos,target_width,target_height);
     update();
 }
