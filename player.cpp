@@ -2,12 +2,12 @@
 #include <QOpenGLFunctions>
 #include <QKeyEvent>
 #include <QTimer>
+#include "target.h"
 
-
-Player::Player(QWidget *parent)
+Player::Player(QWidget *parent, Target** targs)
     : QOpenGLWidget(parent), rotationAngle(0.0f), x_pos(0.0f), y_pos(0.0f), move_speed(0.05f){
     setFocusPolicy(Qt::StrongFocus);
-
+    targets = targs;
     move_timer = new QTimer(this);
     connect(move_timer, &QTimer::timeout, this, &Player::updatePlayerPosition);
     move_timer->start(16); //Draw Interval
@@ -20,7 +20,7 @@ void Player::initializeGL(){
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    setGeometry(500,150,400,400);
+    setGeometry(0,0,1200,600);
 }
 
 void Player::resizeGL(int w, int h){
@@ -65,10 +65,39 @@ void Player::keyPressEvent(QKeyEvent *event){
 
         update();
 }
-
+// bool Player::checkX(Target* t){
+//     qDebug() << "Target X bounds" << t->x_pos << t->x_pos+t->target_width << "| Player:" << 600*(x_pos+1) << "||" << t->y_pos << t->y_pos+t->target_height << "| Player:"<< 300*(1-y_pos);
+//     if(){
+//         qDebug() << "Within them";
+//         return true;
+//     }
+//     return false;
+// }
+bool Player::checkTargetCollision(Target* t){
+    return (600*(x_pos+1) >= t->x_pos && 600*(x_pos+1) <= t->x_pos+t->target_width && 300*(1-y_pos) >= t->y_pos && 300*(1-y_pos)<=t->y_pos+t->target_height);
+}
+int Player::checkCollisions(){
+    for(int i =0;i<16;i++){
+        if(targets[i]!=nullptr){
+            if(checkTargetCollision(targets[i])){
+                delete targets[i];
+                targets[i]=nullptr;
+                return i;
+            }
+        }
+    }
+    return -1;
+}
 void Player::updatePlayerPosition(){
-    float speed = 0.006f;
+    float speed = 0.004f;
     y_pos += speed * std::cos(qDegreesToRadians(rotationAngle));
     x_pos -= speed * std::sin(qDegreesToRadians(rotationAngle));
+    int crash = checkCollisions();
+    if(crash!=-1){
+        qDebug() << "Crash with: (" << crash%4 << ", " << crash/4 << ")";
+    }
+    else{
+        qDebug() << "No crash";
+    }
     update();
 }

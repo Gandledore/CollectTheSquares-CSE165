@@ -2,14 +2,14 @@
 #define PLAYER_H
 
 #include <QOpenGLWidget>
-
+#include "target.h"
 
 class Player : public QOpenGLWidget{
 
 Q_OBJECT
 
 public:
-    Player(QWidget *parent = nullptr);
+    Player(QWidget *parent = nullptr, Target** targs = nullptr);
 
 protected:
     void initializeGL() override;
@@ -17,6 +17,9 @@ protected:
     void paintGL() override;
     void keyPressEvent(QKeyEvent *event) override;
     void updatePlayerPosition();
+    bool checkTargetCollision(Target* t);
+    int checkCollisions();
+    bool checkX(Target* t);
 
 private:
     float rotationAngle;
@@ -24,6 +27,7 @@ private:
     float y_pos;
     QTimer *move_timer;
     float move_speed;
+    Target** targets;
 };
 
 #endif // PLAYER_H

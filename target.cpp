@@ -2,14 +2,15 @@
 #include <QOpenGLFunctions>
 Target::Target(QWidget *parent, float x, float y)
     : QOpenGLWidget(parent), x_pos(x), y_pos(y){
-
+    target_width =20;
+    target_height = 20;
 }
 
 void Target::initializeGL(){
     QOpenGLFunctions *f = QOpenGLContext::currentContext()->functions();
     f->initializeOpenGLFunctions();
     glClearColor(.5, .5, .5, 1); //Background
-    setGeometry(x_pos,y_pos,10,10);
+    setGeometry(x_pos,y_pos,target_width,target_height);
 }
 
 void Target::resizeGL(int w, int h){

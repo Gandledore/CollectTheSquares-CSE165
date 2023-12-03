@@ -8,8 +8,8 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     Esteroid w;
-    Player *ship = new Player(&w);
     Target** targets = new Target*[16];
+    Player *ship = new Player(&w,targets);
     for(int i=0;i<16;i++){
         targets[i] = new Target(&w,550+100*(i%4),200+100*(i/4));
     }
