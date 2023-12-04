@@ -31,7 +31,7 @@ Esteroid::Esteroid(QWidget *parent)
     connect(ship,&Player::gameEnd,this,&Esteroid::finishGame);
 }
 
-void Esteroid::finishGame(){
+// void Esteroid::finishGame(){
 void Esteroid::finishGame(int finalTime) {
 
     QPushButton *closeButton = new QPushButton("Close Game", this);
