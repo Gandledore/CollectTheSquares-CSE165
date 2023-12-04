@@ -2,7 +2,6 @@
 #define TARGET_H
 #include <QOpenGLWidget>
 
-
 class Target : public QOpenGLWidget{
 
     Q_OBJECT
@@ -13,14 +12,14 @@ public:
     float getXright();
     float getYup();
     float getYDown();
-    virtual void updatePos();
+    virtual void updatePos() = 0;
+    ~Target();
 
 protected:
     void initializeGL() override;
     void resizeGL(int w, int h) override;
     void paintGL() override;
 
-private:
     float initial_x;
     float initial_y;
     float x_pos;

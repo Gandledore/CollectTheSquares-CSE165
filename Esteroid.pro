@@ -14,13 +14,15 @@ SOURCES += \
     main.cpp \
     esteroid.cpp \
     player.cpp \
-    target.cpp
+    target.cpp \
+    weirdtarget.cpp
 
 HEADERS += \
     esteroid.h \
     fasttarget.h \
     player.h \
-    target.h
+    target.h \
+    weirdtarget.h
 
 FORMS += \
     esteroid.ui

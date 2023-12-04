@@ -3,7 +3,8 @@
 #include <QKeyEvent>
 #include <QTimer>
 #include "target.h"
-
+#include "fasttarget.h"
+#include "weirdtarget.h"
 
 #include <QTime>
 #include <QElapsedTimer>
@@ -104,9 +105,14 @@ bool Player::checkTargetCollision(Target* t){
 }
 
 int Player::checkCollisions(){
-    for(int i =0;i<16;i++){
+    for(int i =0;i<25;i++){
         if(targets[i]!=nullptr){
-            targets[i]->updatePos();
+            if(i%2==0){
+                (dynamic_cast<weirdTarget*>(targets[i]))->updatePos();
+            }
+            else{
+                (dynamic_cast<fastTarget*>(targets[i]))->updatePos();
+            }
             if(checkTargetCollision(targets[i])){
                 count++;
                 delete targets[i];
