@@ -2,6 +2,7 @@
 #define ESTEROID_H
 
 #include <QMainWindow>
+#include <QLabel>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -15,10 +16,16 @@ class Esteroid : public QMainWindow
 
 public:
     Esteroid(QWidget *parent = nullptr);
-    void finishGame();
+    void finishGame(int finalTime);
     ~Esteroid();
 
 private:
     Ui::Esteroid *ui;
+    QLabel *finalTimeLabel;
+
+private slots:
+    void closeGame();
+
 };
+
 #endif // ESTEROID_H

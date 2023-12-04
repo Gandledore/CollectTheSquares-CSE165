@@ -24,8 +24,9 @@ protected:
     bool checkTargetCollision(Target* t);
     int checkCollisions();
     bool checkX(Target* t);
+    int finalTime;
 signals:
-    gameEnd();
+    void gameEnd(int finalTime);
 private:
     float rotationAngle;
     float x_pos;
