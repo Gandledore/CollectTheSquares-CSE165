@@ -122,7 +122,7 @@ int Player::checkCollisions(){
                     finalTime = t.elapsed()/1000;
                     qDebug() << "tada" << t.durationElapsed()/1000000000.0 << "s";
                     label->hide();
-                    emit gameEnd();
+                    emit gameEnd(finalTime);
                 }
                 return i;
             }
