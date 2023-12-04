@@ -3,7 +3,8 @@
 #include <QKeyEvent>
 #include <QTimer>
 #include "target.h"
-
+#include "fasttarget.h"
+#include "weirdtarget.h"
 
 #include <QTime>
 #include <QElapsedTimer>
@@ -22,7 +23,7 @@ Player::Player(QWidget *parent, Target** targs)
     : QOpenGLWidget(parent), rotationAngle(0.0f), x_pos(0.0f), y_pos(0.0f), move_speed(0.05f){
     setFocusPolicy(Qt::StrongFocus);
     targets = targs;
-    num_targets_left = 16;
+    num_targets_left = 25;
     move_timer = new QTimer(this);
     connect(move_timer, &QTimer::timeout, this, &Player::updatePlayerPosition);
     move_timer->start(16); //Draw Interval
@@ -98,38 +99,30 @@ void Player::keyPressEvent(QKeyEvent *event){
 
         update();
 }
-// bool Player::checkX(Target* t){
-//     qDebug() << "Target X bounds" << t->x_pos << t->x_pos+t->target_width << "| Player:" << 600*(x_pos+1) << "||" << t->y_pos << t->y_pos+t->target_height << "| Player:"<< 300*(1-y_pos);
-//     if(){
-//         qDebug() << "Within them";
-//         return true;
-//     }
-//     return false;
-// }
 
 bool Player::checkTargetCollision(Target* t){
-    return (600*(x_pos+1) >= t->x_pos && 600*(x_pos+1) <= t->x_pos+t->target_width && 300*(1-y_pos) >= t->y_pos && 300*(1-y_pos)<=t->y_pos+t->target_height);
+    return (600*(x_pos+1) >= t->getXleft()) && 600*(x_pos+1) <= t->getXright() && 300*(1-y_pos) >= t->getYup() && 300*(1-y_pos)<=t->getYDown();
 }
 
 int Player::checkCollisions(){
-    for(int i =0;i<16;i++){
+    for(int i =0;i<25;i++){
         if(targets[i]!=nullptr){
-            targets[i]->updatePos();
+            if(i%2==0){
+                (dynamic_cast<weirdTarget*>(targets[i]))->updatePos();
+            }
+            else{
+                (dynamic_cast<fastTarget*>(targets[i]))->updatePos();
+            }
             if(checkTargetCollision(targets[i])){
                 count++;
                 delete targets[i];
                 targets[i]=nullptr;
-                if (count == 16) {
-                    // endTime = t.currentTime();
-                    // qDebug() << "time" << endTime - startTime;
+                num_targets_left--;
+                if(num_targets_left<=0){
                     finalTime = t.elapsed()/1000;
                     qDebug() << "tada" << t.durationElapsed()/1000000000.0 << "s";
                     label->hide();
-                }
-                num_targets_left--;
-                if(num_targets_left<=0){
-                // if(num_targets_left == 15) {
-                    emit gameEnd(finalTime);
+                    emit gameEnd();
                 }
                 return i;
             }
@@ -139,7 +132,7 @@ int Player::checkCollisions(){
 }
 
 void Player::updatePlayerPosition(){
-    float speed = 0.004f;
+    float speed = 0.05f;
     y_pos += speed * std::cos(qDegreesToRadians(rotationAngle));
     if(std::abs(y_pos)>=1){
         y_pos*=-1;

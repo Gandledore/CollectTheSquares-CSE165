@@ -10,15 +10,19 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    fasttarget.cpp \
     main.cpp \
     esteroid.cpp \
     player.cpp \
-    target.cpp
+    target.cpp \
+    weirdtarget.cpp
 
 HEADERS += \
     esteroid.h \
+    fasttarget.h \
     player.h \
-    target.h
+    target.h \
+    weirdtarget.h
 
 FORMS += \
     esteroid.ui
