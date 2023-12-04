@@ -29,7 +29,6 @@ Esteroid::Esteroid(QWidget *parent)
 }
 
 void Esteroid::finishGame(){
-
     close();
 }
 

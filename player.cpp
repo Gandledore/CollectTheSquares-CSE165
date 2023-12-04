@@ -23,7 +23,7 @@ Player::Player(QWidget *parent, Target** targs)
     : QOpenGLWidget(parent), rotationAngle(0.0f), x_pos(0.0f), y_pos(0.0f), move_speed(0.05f){
     setFocusPolicy(Qt::StrongFocus);
     targets = targs;
-    num_targets_left = 16;
+    num_targets_left = 25;
     move_timer = new QTimer(this);
     connect(move_timer, &QTimer::timeout, this, &Player::updatePlayerPosition);
     move_timer->start(16); //Draw Interval
@@ -117,13 +117,9 @@ int Player::checkCollisions(){
                 count++;
                 delete targets[i];
                 targets[i]=nullptr;
-                if (count == 16) {
-                    // endTime = t.currentTime();
-                    // qDebug() << "time" << endTime - startTime;
-                    qDebug() << "tada" << t.durationElapsed()/1000000000.0 << "s";
-                }
                 num_targets_left--;
                 if(num_targets_left<=0){
+                    qDebug() << "tada" << t.durationElapsed()/1000000000.0 << "s";
                     emit gameEnd();
                 }
                 return i;
@@ -134,7 +130,7 @@ int Player::checkCollisions(){
 }
 
 void Player::updatePlayerPosition(){
-    float speed = 0.004f;
+    float speed = 0.05f;
     y_pos += speed * std::cos(qDegreesToRadians(rotationAngle));
     if(std::abs(y_pos)>=1){
         y_pos*=-1;
