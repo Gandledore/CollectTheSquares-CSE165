@@ -28,6 +28,7 @@ protected:
 signals:
     void gameEnd(int finalTime);
 private:
+    float speed = 0.05f;
     float rotationAngle;
     float x_pos;
     float y_pos;

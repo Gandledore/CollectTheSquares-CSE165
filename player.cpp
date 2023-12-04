@@ -122,6 +122,7 @@ int Player::checkCollisions(){
                     finalTime = t.elapsed()/1000;
                     qDebug() << "tada" << t.durationElapsed()/1000000000.0 << "s";
                     label->hide();
+                    speed=0;
                     emit gameEnd(finalTime);
                 }
                 return i;
@@ -132,7 +133,6 @@ int Player::checkCollisions(){
 }
 
 void Player::updatePlayerPosition(){
-    float speed = 0.05f;
     y_pos += speed * std::cos(qDegreesToRadians(rotationAngle));
     if(std::abs(y_pos)>=1){
         y_pos*=-1;
