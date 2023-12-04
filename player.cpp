@@ -98,17 +98,9 @@ void Player::keyPressEvent(QKeyEvent *event){
 
         update();
 }
-// bool Player::checkX(Target* t){
-//     qDebug() << "Target X bounds" << t->x_pos << t->x_pos+t->target_width << "| Player:" << 600*(x_pos+1) << "||" << t->y_pos << t->y_pos+t->target_height << "| Player:"<< 300*(1-y_pos);
-//     if(){
-//         qDebug() << "Within them";
-//         return true;
-//     }
-//     return false;
-// }
 
 bool Player::checkTargetCollision(Target* t){
-    return (600*(x_pos+1) >= t->x_pos && 600*(x_pos+1) <= t->x_pos+t->target_width && 300*(1-y_pos) >= t->y_pos && 300*(1-y_pos)<=t->y_pos+t->target_height);
+    return (600*(x_pos+1) >= t->getXleft()) && 600*(x_pos+1) <= t->getXright() && 300*(1-y_pos) >= t->getYup() && 300*(1-y_pos)<=t->getYDown();
 }
 
 int Player::checkCollisions(){

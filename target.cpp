@@ -41,3 +41,16 @@ void Target::updatePos(){
     setGeometry(x_pos,y_pos,target_width,target_height);
     update();
 }
+
+float Target::getXleft(){
+    return x_pos;
+}
+float Target::getXright(){
+    return x_pos+target_width;
+}
+float Target::getYup(){
+    return y_pos;
+}
+float Target::getYDown(){
+    return y_pos+target_height;
+}
