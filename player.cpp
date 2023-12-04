@@ -33,7 +33,7 @@ Player::Player(QWidget *parent, Target** targs)
     QFont f( "Open Sans", 20, QFont::Bold);
     label->setStyleSheet("QLabel { background-color : black; color:white}");
     label->setFont(f);
-    label->setText("first line\nsecond line");
+    // label->setText("first line\nsecond line");
 
     track = new QTimer(this);
     track->setInterval(1000);
@@ -122,11 +122,14 @@ int Player::checkCollisions(){
                 if (count == 16) {
                     // endTime = t.currentTime();
                     // qDebug() << "time" << endTime - startTime;
+                    finalTime = t.elapsed()/1000;
                     qDebug() << "tada" << t.durationElapsed()/1000000000.0 << "s";
+                    label->hide();
                 }
                 num_targets_left--;
                 if(num_targets_left<=0){
-                    emit gameEnd();
+                // if(num_targets_left == 15) {
+                    emit gameEnd(finalTime);
                 }
                 return i;
             }
