@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QLabel>
+#include "target.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -22,6 +23,7 @@ public:
 private:
     Ui::Esteroid *ui;
     QLabel *finalTimeLabel;
+    Target** targets;
 
 private slots:
     void closeGame();

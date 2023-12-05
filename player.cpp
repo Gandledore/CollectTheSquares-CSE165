@@ -151,3 +151,4 @@ void Player::updateTimer() {
     QString qstr = QString::fromStdString(times1);
     label->setText(qstr);
 }
+Player::~Player(){}

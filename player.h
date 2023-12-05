@@ -11,6 +11,7 @@ Q_OBJECT
 
 public:
     Player(QWidget *parent = nullptr, Target** targs = nullptr);
+    ~Player();
 
 protected:
     void initializeGL() override;

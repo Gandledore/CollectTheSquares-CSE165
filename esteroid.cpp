@@ -18,7 +18,7 @@ Esteroid::Esteroid(QWidget *parent)
     // QTimer *timer = new QTimer(this);
     // connect(timer, SIGNAL(timeout()), this, SLOT(update()));
     // timer->start(1000);
-    Target** targets = new Target*[25];
+    targets = new Target*[25];
     Player *ship = new Player(this,targets);
     for(int i=0;i<25;i++){
         if(i%2==0){
@@ -58,5 +58,11 @@ void Esteroid::closeGame()
 
 Esteroid::~Esteroid()
 {
+    for(int i=0;i<25;i++){
+        if(targets[i]!=nullptr){
+            delete targets[i];
+        }
+    }
+    delete[] targets;
     delete ui;
 }
